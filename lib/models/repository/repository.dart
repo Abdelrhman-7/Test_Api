@@ -1,5 +1,5 @@
-import 'package:flutter_application_1/data_layer/api_manager/api_manager.dart';
-import 'package:flutter_application_1/data_layer/model/response_api.dart';
+import 'package:flutter_application_1/models/api_manager/api_manager.dart';
+import 'package:flutter_application_1/models/model/response_api.dart';
 
 class Repository {
   Repository(this.apiManager);
@@ -14,17 +14,9 @@ class Repository {
     }
   }
 
-  Future<String> forgetPassword({
-    required String email,
-    required String password,
-    required String confirmPassword,
-  }) async {
+  Future<String> forgetPassword({required String email}) async {
     try {
-      final response = await apiManager.forgetPassword(
-        email: email,
-        password: password,
-        confirmPassword: confirmPassword,
-      );
+      final response = await apiManager.forgetPassword(email: email);
       return response;
     } catch (e) {
       rethrow;

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/data_layer/model/response_api.dart';
 import 'package:flutter_application_1/view/screen/forget_passowrd.dart';
-import 'package:flutter_application_1/view/screen/new_passowrd_screen.dart';
 import 'package:flutter_application_1/view/screen/register_screen.dart';
 import 'package:flutter_application_1/view/screen/home.dart';
 import 'package:flutter_application_1/view/screen/login_screen.dart';
@@ -16,20 +14,14 @@ class RoutManager {
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case login:
-        return MaterialPageRoute(
-          builder: (_) => LoginScreen(response: ResponseApi()),
-        );
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
       case registerscreen:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
       case home:
-        return MaterialPageRoute(builder: (_) => Home());
+        return MaterialPageRoute(builder: (_) => const Home());
       case forgetPassword:
         return MaterialPageRoute(builder: (_) => const ForgetPassowrd());
-      case newPassowrdScreen:
-        final email = settings.arguments as String? ?? "";
-        return MaterialPageRoute(
-          builder: (_) => NewPasswordScreen(email: email),
-        );
+
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
@@ -39,3 +31,8 @@ class RoutManager {
     }
   }
 }
+/* case newPassowrdScreen:
+        final email = settings.arguments as String? ?? "";
+        return MaterialPageRoute(
+          builder: (_) => NewPasswordScreen(email: email),
+        );*/

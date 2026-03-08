@@ -2,8 +2,18 @@ class ResponseApi {
   Info? info;
   List<Item>? item;
   List<Variable>? variable;
+  String? email;
+  int? status;
+  String? message;
 
-  ResponseApi({this.info, this.item, this.variable});
+  ResponseApi({
+    this.info,
+    this.item,
+    this.variable,
+    this.email,
+    this.status,
+    this.message,
+  });
 
   ResponseApi.fromJson(Map<String, dynamic> json) {
     info = json['info'] != null ? Info.fromJson(json['info']) : null;
@@ -17,6 +27,9 @@ class ResponseApi {
         json['variable'],
       ).map((e) => Variable.fromJson(e)).toList();
     }
+    email = json['email'];
+    status = json['status'];
+    message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
@@ -24,6 +37,9 @@ class ResponseApi {
       "info": info?.toJson(),
       "item": item?.map((e) => e.toJson()).toList(),
       "variable": variable?.map((e) => e.toJson()).toList(),
+      "email": email,
+      "status": status,
+      "message": message,
     };
   }
 }

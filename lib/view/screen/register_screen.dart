@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/business_logic-layer/test_api_cubit.dart';
+import 'package:flutter_application_1/controller/business_logic-layer/test_api_cubit.dart';
 import 'package:flutter_application_1/rout_manager/rout_manager.dart';
-import 'package:flutter_application_1/shered/custome_bottum/custom_bottum_forget_passowrd.dart';
+import 'package:flutter_application_1/shered/custome_bottum/custom_bottum_register_button.dart';
 import 'package:flutter_application_1/shered/custome_text_filed/custome_text_filed.dart';
+import 'package:flutter_application_1/models/model/response_api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
-
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
@@ -30,8 +30,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     confirmPassword = TextEditingController(text: "123456");
     userNameController = TextEditingController(text: "abc");
     mobileNumberController = TextEditingController(text: "123456789");
-    countryMobileCode = TextEditingController(text: "+20");
-    profilePicture = TextEditingController(text: "abc");
+    countryMobileCode = TextEditingController(text: "+966");
+    profilePicture = TextEditingController(text: "");
   }
 
   @override
@@ -58,7 +58,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ScaffoldMessenger.of(
                 context,
               ).showSnackBar(SnackBar(content: Text(state.message)));
-              Navigator.pushNamed(context, RoutManager.login);
+              Navigator.pushNamed(
+                context,
+                RoutManager.login,
+                arguments: ResponseApi(email: emailController.text),
+              );
             } else if (state is TestApiError) {
               ScaffoldMessenger.of(
                 context,
@@ -109,7 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     if (state is TestApiLoading)
                       const CircularProgressIndicator()
                     else
-                      CustomButtonForget(
+                      CustomRegisterButton(
                         emailController: emailController,
                         passwordController: passwordController,
                         formKey: _formKey,
@@ -118,6 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         mobileNumberController: mobileNumberController,
                         countryMobileCode: countryMobileCode,
                         profilePicture: profilePicture,
+                        text: "register",
                       ),
                   ],
                 ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/data_layer/api_manager/api_manager.dart';
+import 'package:flutter_application_1/models/api_manager/api_manager.dart';
 import 'package:flutter_application_1/rout_manager/rout_manager.dart';
 
 class CustomeBottum extends StatelessWidget {
@@ -29,9 +29,9 @@ class CustomeBottum extends StatelessWidget {
             Navigator.pushNamed(context, RoutManager.home);
           } catch (e) {
             if (context.mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Error: ${e.toString()}")),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text("Error: ${e.toString()}")));
             }
           }
         }

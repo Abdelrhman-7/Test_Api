@@ -17,6 +17,8 @@ final class TestApiSuccess extends TestApiState {
   TestApiSuccess({required this.message});
 }
 
+final class TestApiLoginSuccess extends TestApiState {}
+
 final class TestApiError extends TestApiState {
   final String message;
 

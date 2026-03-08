@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_application_1/data_layer/api_manager/custome_eception.dart';
+import 'package:flutter_application_1/models/api_manager/custome_eception.dart';
 
 class ApiInterceptor extends Interceptor {
   @override

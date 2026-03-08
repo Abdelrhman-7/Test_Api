@@ -1,18 +1,26 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/constant/api_constant.dart';
-import 'package:flutter_application_1/data_layer/api_manager/custome_eception.dart';
-import 'package:flutter_application_1/data_layer/model/response_api.dart';
+import 'package:flutter_application_1/models/api_manager/custome_eception.dart';
+import 'package:flutter_application_1/models/model/response_api.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class ApiManager {
-  final Dio dio = Dio(
-    BaseOptions(
-      baseUrl: ApiConstant.baseUrl,
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
-      headers: {'Accept': 'application/json'},
-    ),
-  );
-
+  final Dio dio =
+      Dio(
+          BaseOptions(
+            baseUrl: ApiConstant.baseUrl,
+            connectTimeout: const Duration(seconds: 10),
+            receiveTimeout: const Duration(seconds: 10),
+            headers: {'Accept': 'application/json'},
+          ),
+        )
+        ..interceptors.add(
+          PrettyDioLogger(
+            requestHeader: true,
+            requestBody: true,
+            responseHeader: false,
+          ),
+        );
   Future<ResponseApi> login(String email, String password) async {
     try {
       final response = await dio.post(
@@ -68,17 +76,12 @@ class ApiManager {
     }
   }
 
-  Future<String> forgetPassword({
-    required String email,
-    required String password,
-    required String confirmPassword,
-  }) async {
+  Future<String> forgetPassword({required String email}) async {
     try {
       final response = await dio.post(
         "/customers/forgetPassword",
-        data: {"email": email, "password": password},
+        data: {"email": email},
       );
-
       if (response.statusCode == 200 || response.statusCode == 201) {
         return response.data['message'];
       } else {

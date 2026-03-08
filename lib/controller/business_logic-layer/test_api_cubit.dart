@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_application_1/data_layer/api_manager/custome_eception.dart';
-import 'package:flutter_application_1/data_layer/repository/repository.dart';
+import 'package:flutter_application_1/models/api_manager/custome_eception.dart';
+import 'package:flutter_application_1/models/repository/repository.dart';
 import 'package:meta/meta.dart';
-
 part 'test_api_state.dart';
 
 class TestApiCubit extends Cubit<TestApiState> {
@@ -13,31 +12,21 @@ class TestApiCubit extends Cubit<TestApiState> {
     emit(TestApiLoading());
     try {
       final response = await repository.login(email, password);
-      emit(TestApiSuccess(message: response.info!.name!));
+      emit(
+        TestApiSuccess(message: response.message ?? "Logged in successfully"),
+      );
     } catch (e) {
       emit(TestApiError(message: e.toString()));
     }
   }
 
-  Future<void> forgetPassword({
-    required String email,
-    required String password,
-    required String confirmPassword,
-  }) async {
+  Future<void> forgetPassword({required String email}) async {
     emit(TestApiLoading());
     try {
-      final response = await repository.forgetPassword(
-        email: email,
-        password: password,
-        confirmPassword: confirmPassword,
-      );
+      final response = await repository.forgetPassword(email: email);
       emit(TestApiSuccess(message: response));
     } catch (e) {
-      String errorMessage = "Unexpected Error";
-      if (e is ApiException) {
-        errorMessage = e.message;
-      }
-      emit(TestApiError(message: errorMessage));
+      emit(TestApiError(message: e.toString()));
     }
   }
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_application_1/business_logic-layer/test_api_cubit.dart';
-import 'package:flutter_application_1/data_layer/api_manager/api_manager.dart';
-import 'package:flutter_application_1/data_layer/repository/repository.dart';
+import 'package:flutter_application_1/controller/business_logic-layer/test_api_cubit.dart';
+import 'package:flutter_application_1/models/api_manager/api_manager.dart';
+import 'package:flutter_application_1/models/repository/repository.dart';
 import 'package:flutter_application_1/rout_manager/rout_manager.dart';
 
 void main() {
