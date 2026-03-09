@@ -1,6 +1,7 @@
 // forget_password.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controller/business_logic-layer/test_api_cubit.dart';
+import 'package:flutter_application_1/rout_manager/rout_manager.dart';
 import 'package:flutter_application_1/shered/custome_bottum/custom_bottum_register_button.dart';
 import 'package:flutter_application_1/shered/custome_text_filed/custome_text_filed.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +38,7 @@ class _ForgetPassowrdState extends State<ForgetPassowrd> {
         child: BlocConsumer<TestApiCubit, TestApiState>(
           listener: (context, state) {
             if (state is TestApiSuccess) {
+              Navigator.pushNamed(context, RoutManager.login);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text(

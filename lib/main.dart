@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/controller/shered_pref_controller/shered_pref_controler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_application_1/controller/business_logic-layer/test_api_cubit.dart';
@@ -6,12 +7,18 @@ import 'package:flutter_application_1/models/api_manager/api_manager.dart';
 import 'package:flutter_application_1/models/repository/repository.dart';
 import 'package:flutter_application_1/rout_manager/rout_manager.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefController = SharedPrefController();
+  bool isLoggedIn = await prefController.isLoggedIn();
+  runApp(
+    MyApp(initialRoute: isLoggedIn ? RoutManager.home : RoutManager.login),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String initialRoute;
+  const MyApp({super.key, required this.initialRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           onGenerateRoute: RoutManager().generateRoute,
-          initialRoute: RoutManager.login,
+          initialRoute: initialRoute, // هنا نستخدم القيمة اللي قرأناها
         ),
       ),
     );
